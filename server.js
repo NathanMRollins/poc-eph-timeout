@@ -1,33 +1,12 @@
 // set up server here
-var express = require('express')
-var app = express()
+require('dotenv').config();
+var express = require('express');
+var app = express();
 var request = require("request");
-
-
-// https://poc-eph-timeout.herokuapp.com/
+var client = require('redis').createClient(process.env.REDIS_URL);
 
 var port = process.env.PORT || 3000;
 
-
-// function myFunc() {
-//   console.log('hi');
-// }
-
-// app.post('/', function (req, res) {
-//   console.log(req);
-//   request = req;
-//     res.write('request');
-//     console.log('Received post request');
-//     setTimeout(myFunc,15000);
-//     res.write('\n');
-//     res.write('end');
-//     var i = 0;
-//     while( i < 1000){
-//       res.write('test');
-//       i++;
-//     }
-//     res.end();
-//   })
 
   app.post('/getData', function (req, res) {
     var token = '';
@@ -75,7 +54,6 @@ var port = process.env.PORT || 3000;
 
       request(optionsData, function (error, response, body) {
         if (error) throw new Error(error);
-        console.log('Hmm');
 
         res.send(JSON.parse(body));
       });
@@ -85,6 +63,10 @@ var port = process.env.PORT || 3000;
 
 
   });
+
+app.get('/', (req, res) => {
+  res.send(client);
+});
 
   app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
