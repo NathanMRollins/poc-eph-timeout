@@ -21,6 +21,7 @@
     "express": "^4.16.4",
     "kue": "^0.11.6",
     "redis": "^2.8.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "response-time": "^2.3.2"
   }
 }
