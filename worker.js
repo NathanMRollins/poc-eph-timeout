@@ -1,17 +1,27 @@
-var request = require("request");
+// hi
 var kue = require("kue");
-require('dotenv').config();
+var request = require("request");
 
-try {
-  const queue = kue.createQueue({
-    redis: process.env.REDIS_URL,
+let queue = kue.createQueue();
+
+console.log('Waiting for work!');
+
+queue.process("test", (job, done) => {
+    console.log("job data", job.data);
+    done(null, 'Success!');
+});
+
+queue.process("getData", (job, done) => {
+  console.log("job data", job.data.title);
+  options = job.data.options;
+  delete options.timeout;
+  request(options, function (err, response, body) {
+    if (err) {
+      console.log(err);
+      done(err);
+    }
+    console.log('Worker finished getData job.')
+    done(null, body);
   });
-  queue.process('mytype', (job, done) => {
-    //job is passed in for job.data.whatever or some such
-    console.log(job.data.title);
-    console.log('Hey we be working here!');
-    done(null, 'Hey we finished!');
-  });
-} catch (error) {
-  console.log(error);
-}
+ 
+});
