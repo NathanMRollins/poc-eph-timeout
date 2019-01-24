@@ -6,7 +6,7 @@ var kue = require('kue');
 var express = require('express');
 var request = require("request");
 
-var client = kue.redis.createClient(process.env.REDIS_URL);
+var client = redis.createClient(process.env.REDIS_URL);
 // var client = redis.createClient();
 var queue = kue.createQueue({
     redis: process.env.REDIS_URL
