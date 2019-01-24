@@ -13,7 +13,7 @@ var queue = kue.createQueue({
 });
 
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
