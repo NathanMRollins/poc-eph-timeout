@@ -1,13 +1,16 @@
 // hello
 // redisDemo.js
+require('dotenv').config();
 var redis = require('redis');
 var kue = require('kue');
 var express = require('express');
 var request = require("request");
 
-
-var client = redis.createClient(); // this creates a new client
-var queue = kue.createQueue();
+var client = kue.redis.createClient(process.env.REDIS_URL);
+// var client = redis.createClient();
+var queue = kue.createQueue({
+    redis: process.env.REDIS_URL
+});
 
 var app = express();
 var port = 3000;

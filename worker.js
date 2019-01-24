@@ -1,8 +1,11 @@
 // hi
+require('dotenv').config();
 var kue = require("kue");
 var request = require("request");
 
-let queue = kue.createQueue();
+var queue = kue.createQueue({
+  redis: process.env.REDIS_URL
+});
 
 console.log('Waiting for work!');
 
