@@ -6,10 +6,10 @@ var kue = require('kue');
 var express = require('express');
 var request = require("request");
 
-var client = redis.createClient(process.env.REDIS_URL);
+var client = redis.createClient();
 // var client = redis.createClient();
 var queue = kue.createQueue({
-    redis: process.env.REDIS_URL
+    // redis: process.env.REDIS_URL
 });
 
 var app = express();
@@ -87,7 +87,6 @@ app.post('/getData', function (req, res){
 
         request(optionsData, function (err, response, body) {
             if (err) {
-                console.log(err);
                 if(err.code === 'ESOCKETTIMEDOUT'){
                     if(err.connect === false){
                         // then we have a timeout error so we put this job on the kue queue
