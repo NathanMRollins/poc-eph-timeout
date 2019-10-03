@@ -2,7 +2,7 @@ var kue = require("kue");
 var request = require("request");
 
 var queue = kue.createQueue({
-  // redis: process.env.REDIS_URL // this is for heroku redis instead of local
+  redis: process.env.REDIS_URL // this is for heroku redis instead of local
 });
 
 // Here the worker is designed to handle different job types
