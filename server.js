@@ -17,7 +17,7 @@ app.listen(port, function() {
 });
 
 client.on('connect', function() {
-    console.log('Redis client connected');
+    console.log('Redis client connected');  
 });
 
 client.on('error', function (err) {
