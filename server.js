@@ -1,5 +1,3 @@
-// hello
-// redisDemo.js
 require('dotenv').config();
 var redis = require('redis');
 var kue = require('kue');
@@ -7,9 +5,8 @@ var express = require('express');
 var request = require("request");
 
 var client = redis.createClient();
-// var client = redis.createClient();
 var queue = kue.createQueue({
-    // redis: process.env.REDIS_URL
+    redis: process.env.REDIS_URL
 });
 
 var app = express();
@@ -20,7 +17,7 @@ app.listen(port, function() {
 });
 
 client.on('connect', function() {
-    console.log('Redis client connected');
+    console.log('Redis client connected');  
 });
 
 client.on('error', function (err) {
@@ -49,7 +46,7 @@ app.post('/getData', function (req, res){
         qs:
         {
             username: 'm__rollins_nathan@network.lilly.com',
-            password: '62@DeeDee',
+            password: 'Link345$',
             grant_type: 'password'
         },
         headers:
